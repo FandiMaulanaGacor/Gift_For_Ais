@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 
-type ImageItem = string | { src: string; alt?: string };
+type ImageItem = {
+  src: string;
+  alt?: string;
+  leftText?: string;
+  rightText?: string;
+};
 
 type DomeGalleryProps = {
   images?: ImageItem[];
@@ -36,31 +41,45 @@ type ItemDef = {
 const DEFAULT_IMAGES: ImageItem[] = [
   {
     src: 'https://images.unsplash.com/photo-1755331039789-7e5680e26e8f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Abstract art'
+    alt: 'Abstract art',
+    leftText: 'My',
+    rightText: 'Princess'
   },
   {
     src: 'https://images.unsplash.com/photo-1755569309049-98410b94f66d?q=80&w=772&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Modern sculpture'
+    alt: 'Modern sculpture',
+    leftText: 'Cute',
+    rightText: 'Girl'
   },
   {
     src: 'https://images.unsplash.com/photo-1755497595318-7e5e3523854f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Digital artwork'
+    alt: 'Digital artwork',
+    leftText: 'Love',
+    rightText: 'Forever'
   },
   {
     src: 'https://images.unsplash.com/photo-1755353985163-c2a0fe5ac3d8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Contemporary art'
+    alt: 'Contemporary art',
+    leftText: 'Miss',
+    rightText: 'You'
   },
   {
     src: 'https://images.unsplash.com/photo-1745965976680-d00be7dc0377?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Geometric pattern'
+    alt: 'Geometric pattern',
+    leftText: 'Stay',
+    rightText: 'With Me'
   },
   {
     src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Textured surface'
+    alt: 'Textured surface',
+    leftText: 'Only',
+    rightText: 'You'
   },
   {
     src: 'https://pbs.twimg.com/media/Gyla7NnXMAAXSo_?format=jpg&name=large',
-    alt: 'Social media image'
+    alt: 'Social media image',
+    leftText: 'My',
+    rightText: 'Everything'
   }
 ];
 
@@ -146,7 +165,7 @@ export default function DomeGallery({
   minRadius = 600,
   maxRadius = Infinity,
   padFactor = 0.25,
-  overlayBlurColor = '#060010',
+  overlayBlurColor = '#330d49',
   maxVerticalRotationDeg = DEFAULTS.maxVerticalRotationDeg,
   dragSensitivity = DEFAULTS.dragSensitivity,
   enlargeTransitionMs = DEFAULTS.enlargeTransitionMs,
@@ -703,17 +722,22 @@ export default function DomeGallery({
       overlay.addEventListener('transitionend', onFirstEnd);
     }
 
-    // Add romantic labels
-    const labelLeft = document.createElement('div');
-    labelLeft.className = 'romantic-label label-left font-playfair';
-    labelLeft.innerText = 'My';
+// Add romantic labels
+const labelLeft = document.createElement('div');
+labelLeft.className = 'romantic-label label-left font-playfair';
 
-    const labelRight = document.createElement('div');
-    labelRight.className = 'romantic-label label-right font-playfair';
-    labelRight.innerText = 'Everything';
+const labelRight = document.createElement('div');
+labelRight.className = 'romantic-label label-right font-playfair';
 
-    viewerRef.current?.appendChild(labelLeft);
-    viewerRef.current?.appendChild(labelRight);
+const currentImage = images.find(
+  (img) => img?.src && rawSrc?.includes(img.src)
+);
+
+labelLeft.innerText = currentImage?.leftText ?? 'My';
+labelRight.innerText = currentImage?.rightText ?? 'Everything';
+
+viewerRef.current?.appendChild(labelLeft);
+viewerRef.current?.appendChild(labelRight);
 
     const checkAndShowLabels = () => {
       if (rootRef.current?.getAttribute('data-enlarging') === 'true') {
@@ -760,6 +784,13 @@ export default function DomeGallery({
       margin: auto;
       perspective: calc(var(--radius) * 2);
       perspective-origin: 50% 50%;
+    }
+    
+      .sphere-root[data-enlarging='true'] .top-title,
+      .sphere-root[data-enlarging='true'] .bottom-title {
+      opacity: 0.25;
+      filter: blur(6px);
+      transition: all 0.5s ease;
     }
     
     .sphere {
@@ -894,6 +925,23 @@ export default function DomeGallery({
             WebkitUserSelect: 'none'
           }}
         >
+          {/* tulisan atas */}
+              <div className="top-title absolute top-12 left-1/2 -translate-x-1/2 z-30 px-2 w-full">
+        <h1
+          className="text-white text-[17px] md:text-5xl font-light italic tracking-[0.08em] text-center drop-shadow-lg whitespace-nowrap overflow-hidden"
+          style={{ fontFamily: 'Cormorant Garamond, serif' }}
+        >
+          You Are My Favorite Person ❤️💜
+        </h1>
+         <h1
+          className="text-white text-[22px] md:text-10xl font-light italic tracking-[0.08em] text-center drop-shadow-lg whitespace-nowrap overflow-hidden"
+          style={{ fontFamily: 'Cormorant Garamond, serif' }}
+        >
+          Aisyah Nurruz Zahra
+        </h1>
+        
+      </div>
+
           <div className="stage">
             <div ref={sphereRef} className="sphere">
               {items.map((it, i) => (
@@ -959,6 +1007,14 @@ export default function DomeGallery({
                 </div>
               ))}
             </div>
+          </div>
+           <div className="bottom-title absolute bottom-15 left-1/2 -translate-x-1/2 z-30 px-2 w-full">
+              <p
+                className="text-white text-[20px] md:text-2xl italic tracking-[0.06em] text-center whitespace-nowrap overflow-hidden"
+                style={{ fontFamily: 'Cormorant Garamond, serif' }}
+              >
+                Forever & Always ❤️💜
+              </p>
           </div>
 
           <div

@@ -129,7 +129,7 @@ const TicTacToeStep = ({ onComplete }: { onComplete: () => void }) => {
     const [board, setBoard] = useState(Array(9).fill(null));
     const [isUserTurn, setIsUserTurn] = useState(true);
     const [winner, setWinner] = useState<string | null>(null);
-    const [message, setMessage] = useState("Let's play a little game...");
+    const [message, setMessage] = useState("I made this game for you.");
 
     const checkWinner = useCallback((squares: (string | null)[]) => {
         const lines = [
@@ -185,7 +185,7 @@ const TicTacToeStep = ({ onComplete }: { onComplete: () => void }) => {
 
     useEffect(() => {
         if (winner === 'X') {
-            setMessage("Kamu Memenangkan");
+            setMessage("Yeyey Menang!!!");
             setTimeout(() => onComplete(), 3500); // Increased timeout to wait for staggered animation
         } else if (winner === 'O' || winner === 'draw') {
             setMessage(winner === 'draw' ? "Seri! Coba lagi yaa ❤️" : "Hampir! Sekali lagi...");
@@ -205,7 +205,7 @@ const TicTacToeStep = ({ onComplete }: { onComplete: () => void }) => {
             className="flex flex-col items-center justify-center space-y-10 relative z-10"
         >
             <h2 className="text-4xl font-playfair text-white text-center drop-shadow-lg max-w-xs whitespace-pre-line leading-tight">
-                {winner === 'X' ? "Kamu Memenangkan" : message}
+                {winner === 'X' ? "Yeyey Menang!!!" : message}
             </h2>
             <div className="grid grid-cols-3 gap-3 p-4 bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl">
                 {board.map((square, i) => (
@@ -244,7 +244,7 @@ const TicTacToeStep = ({ onComplete }: { onComplete: () => void }) => {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-4xl font-playfair text-white text-center drop-shadow-lg mt-4"
                     >
-                        Hatiku
+                       You’ve already won my heart too.
                     </motion.h2>
                 )}
             </AnimatePresence>
@@ -282,7 +282,7 @@ const LoveMeterStep = ({ onComplete }: { onComplete: () => void }) => {
             exit={{ opacity: 0 }}
             className="flex flex-col items-center justify-center space-y-12 w-full max-w-lg px-6 relative z-10"
         >
-            <div className="relative w-full aspect-[2/1] flex flex-col items-center justify-end overflow-hidden">
+            <div className="relative w-full h-[260px] sm:h-[320px] flex flex-col items-center justify-end">
                 {/* SVG Gauge */}
                 <svg viewBox="0 0 200 100" className="w-full h-full absolute top-0 overflow-visible">
                     {/* Background Path (Gray) */}
@@ -320,10 +320,9 @@ const LoveMeterStep = ({ onComplete }: { onComplete: () => void }) => {
                     >
                         <Heart className="w-16 h-16 text-red-500 fill-red-500 mb-2" />
                     </motion.div>
-                    <div className="text-6xl font-black text-white font-mono tracking-tighter">
-                        {progress}<span className="text-red-400 text-3xl">%</span>
+                        <div className="text-4xl sm:text-6xl font-black text-white font-mono tracking-tighter leading-none">                        {progress}<span className="text-red-400 text-3xl">%</span>
                     </div>
-                    <span className="text-2xl text-white/60 font-playfair italic mt-2 tracking-widest">Love Intensity</span>
+                    <span className="text-2xl text-white/60 font-playfair italic mt-2 tracking-widest"> LOVE PARAMETER </span>
                 </div>
             </div>
 
@@ -340,7 +339,7 @@ const LoveMeterStep = ({ onComplete }: { onComplete: () => void }) => {
 
 // --- Step 4: Typewriter ---
 const TypewriterStep = ({ onComplete }: { onComplete: () => void }) => {
-    const text = "Happy Valentine!!!!";
+    const text = "Semangat kerja ya Ais, tetap jaga kesehatan, jangan dipaksain kalau capek ya. Jangan sampai sakit, pandi selalu pengen Ais baik-baik aja. pandi always support you in every situation, I’ll always be on your side, I love you so much  ❤️❤️❤️.";
     const [displayedText, setDisplayedText] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
 
@@ -349,13 +348,13 @@ const TypewriterStep = ({ onComplete }: { onComplete: () => void }) => {
         if (!isDeleting && displayedText !== text) {
             timer = setTimeout(() => {
                 setDisplayedText(text.slice(0, displayedText.length + 1));
-            }, 150);
+            }, 90);
         } else if (!isDeleting && displayedText === text) {
-            timer = setTimeout(() => setIsDeleting(true), 2500);
+            timer = setTimeout(() => setIsDeleting(true), 2000);
         } else if (isDeleting && displayedText !== "") {
             timer = setTimeout(() => {
                 setDisplayedText(text.slice(0, displayedText.length - 1));
-            }, 80);
+            }, 3);
         } else if (isDeleting && displayedText === "") {
             onComplete();
         }
@@ -366,10 +365,10 @@ const TypewriterStep = ({ onComplete }: { onComplete: () => void }) => {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0, filter: 'blur(20px)' }}
+            exit={{ opacity: 0, filter: 'blur(10px)' }}
             className="flex items-center justify-center p-8 relative z-10"
         >
-            <h1 className="text-5xl sm:text-8xl font-playfair text-white text-center leading-tight">
+            <h1 className="text-2xl sm:text-5xl md:text-7xl font-playfair text-white text-center leading-relaxed break-words px-4 max-w-[90vw]">
                 {displayedText}
                 <motion.span
                     animate={{ opacity: [0, 1, 0] }}
