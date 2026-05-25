@@ -61,7 +61,7 @@ const LoveModeStep = ({ onComplete }: { onComplete: () => void }) => {
             exit={{ opacity: 0, scale: 1.05, filter: 'blur(10px)' }}
             className="flex flex-col items-center justify-center relative z-10"
         >
-            <div className={`backdrop-blur-2xl p-12 rounded-[3rem] transition-all duration-1000 ease-in-out flex flex-col items-center space-y-10 border border-white/10 ${isOn ? 'bg-red-500/10 shadow-[0_0_80px_rgba(239,68,68,0.2)] border-red-500/20' : 'bg-white/5 shadow-2xl'}`}>
+            <div className={`backdrop-blur-2xl p-6 sm:p-12 rounded-[2rem] sm:rounded-[3rem] transition-all duration-1000 ease-in-out flex flex-col items-center space-y-10 border border-white/10 ${isOn ? 'bg-red-500/10 shadow-[0_0_80px_rgba(239,68,68,0.2)] border-red-500/20' : 'bg-white/5 shadow-2xl'}`}>
                 <div className="relative">
                     <motion.div
                         animate={isOn ? {
