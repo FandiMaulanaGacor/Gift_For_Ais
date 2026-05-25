@@ -339,7 +339,7 @@ const LoveMeterStep = ({ onComplete }: { onComplete: () => void }) => {
 
 // --- Step 4: Typewriter ---
 const TypewriterStep = ({ onComplete }: { onComplete: () => void }) => {
-    const text = "Semangat kerja ya Ais, tetap jaga kesehatan, jangan dipaksain kalau capek ya. Jangan sampai sakit, pandi selalu pengen Ais baik-baik aja. pandi always support you in every situation, I’ll always be on your side, I love you so much  ❤️❤️❤️.";
+    const text = "Semangat kerja ya Ais, tetap jaga kesehatan, jangan dipaksain kalau capek. Jangan sampai sakit, pandi tuh pengen Ais baik-baik aja. pandi always support you in every situation, I’ll always be on your side, I love you so much  ❤️❤️❤️.";
     const [displayedText, setDisplayedText] = useState("");
     const [isDeleting, setIsDeleting] = useState(false);
 
