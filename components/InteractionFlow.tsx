@@ -204,16 +204,15 @@ const TicTacToeStep = ({ onComplete }: { onComplete: () => void }) => {
             exit={{ opacity: 0, scale: 0.9 }}
             className="flex flex-col items-center justify-center space-y-10 relative z-10"
         >
-            <h2 className="text-4xl font-playfair text-white text-center drop-shadow-lg max-w-xs whitespace-pre-line leading-tight">
-                {winner === 'X' ? "Yeyey Menang!!!" : message}
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-playfair text-white text-center drop-shadow-lg max-w-xs whitespace-pre-line leading-tight">                {winner === 'X' ? "Yeyey Menang!!!" : message}
             </h2>
             <div className="grid grid-cols-3 gap-3 p-4 bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl">
                 {board.map((square, i) => (
                     <button
                         key={i}
                         onClick={() => handleSquareClick(i)}
-                        className="w-20 h-20 sm:w-24 sm:h-24 bg-white/10 rounded-2xl flex items-center justify-center border border-white/10 hover:bg-white/20 transition-all duration-300 group"
-                    >
+                        className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-white/10 rounded-2xl flex items-center justify-center border border-white/10 hover:bg-white/20 transition-all duration-300 group"
+                        >
                         <AnimatePresence mode="wait">
                             {square === 'X' ? (
                                 <motion.div
@@ -242,8 +241,7 @@ const TicTacToeStep = ({ onComplete }: { onComplete: () => void }) => {
                     <motion.h2
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl font-playfair text-white text-center drop-shadow-lg mt-4"
-                    >
+                    className="text-xl sm:text-2xl md:text-4xl font-playfair text-white text-center drop-shadow-lg mt-4 px-2"                    >
                        You’ve already won my heart too.
                     </motion.h2>
                 )}
