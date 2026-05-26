@@ -37,7 +37,7 @@ const userImages = [
         <InteractionFlow onFlowComplete={() => setShowGallery(true)} />
       ) : (
         <>
-          <audio src="/pretty(1).m4a" autoPlay loop className="hidden" />
+          <audio src="/pretty.m4a" autoPlay loop className="hidden" />
           <DomeGallery
             images={userImages}
             fit={0.8}
